@@ -30,6 +30,21 @@ class GameScene: SKScene {
         }
     }
     
+    override func keyUp(with event: NSEvent) {
+        switch event.keyCode {
+        case 13, 126:
+            print("Up released")
+        case 2, 124:
+            print("Right released")
+        case 1, 125:
+            print("Down released")
+        case 0, 123:
+            print("Left released")
+        default:
+            print("keyUp: \(event.characters!) keyCode: \(event.keyCode)")
+        }
+    }
+    
     
     override func update(_ currentTime: TimeInterval) {
 
