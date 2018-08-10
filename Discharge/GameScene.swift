@@ -11,7 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var directionsPressed: [Direction] = []
+    var directionsPressed: Set<Direction> = Set<Direction>()
     
     override func sceneDidLoad() {
 
@@ -21,12 +21,16 @@ class GameScene: SKScene {
         switch event.keyCode {
         case 13, 126:
             print("Up pressed")
+            directionsPressed.insert(.up)
         case 2, 124:
             print("Right pressed")
+            directionsPressed.insert(.right)
         case 1, 125:
             print("Down pressed")
+            directionsPressed.insert(.down)
         case 0, 123:
             print("Left pressed")
+            directionsPressed.insert(.left)
         default:
             print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
@@ -36,12 +40,16 @@ class GameScene: SKScene {
         switch event.keyCode {
         case 13, 126:
             print("Up released")
+            directionsPressed.remove(.up)
         case 2, 124:
             print("Right released")
+            directionsPressed.remove(.right)
         case 1, 125:
             print("Down released")
+            directionsPressed.remove(.down)
         case 0, 123:
             print("Left released")
+            directionsPressed.remove(.left)
         default:
             print("keyUp: \(event.characters!) keyCode: \(event.keyCode)")
         }
@@ -57,7 +65,7 @@ enum Direction {
     case right
     case down
     case left
-    static func normalVectorFrom(directions: [Direction]) -> CGVector {
+    static func normalVectorFrom(directions: Set<Direction>) -> CGVector {
         var v = CGVector.zero
         for dir in directions {
             switch dir {
@@ -75,7 +83,7 @@ enum Direction {
     }
 }
 extension CGVector {
-    init(from directions: [Direction]) {
+    init(from directions: Set<Direction>) {
         self = CGVector.zero
         for dir in directions {
             switch dir {
