@@ -11,6 +11,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    var directionsPressed: [Direction] = []
+    
     override func sceneDidLoad() {
 
     }
@@ -48,5 +50,44 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
 
+    }
+}
+enum Direction {
+    case up
+    case right
+    case down
+    case left
+    static func normalVectorFrom(directions: [Direction]) -> CGVector {
+        var v = CGVector.zero
+        for dir in directions {
+            switch dir {
+            case .up:
+                v.dy += 1
+            case .right:
+                v.dx += 1
+            case .down:
+                v.dy -= 1
+            case.left:
+                v.dx -= 1
+            }
+        }
+        return v
+    }
+}
+extension CGVector {
+    init(from directions: [Direction]) {
+        self = CGVector.zero
+        for dir in directions {
+            switch dir {
+            case .up:
+                dy += 1
+            case .right:
+                dx += 1
+            case .down:
+                dy -= 1
+            case.left:
+                dx -= 1
+            }
+        }
     }
 }
